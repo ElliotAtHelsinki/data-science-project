@@ -1,5 +1,6 @@
 import pandas as pd
 from os import listdir
+import openpyxl
 
 weather_df = pd.read_csv('datasets/weather_hourly_helsinki.csv')
 
@@ -13,6 +14,7 @@ weather_df = weather_df.loc[2:, :]
 
 bike_df = pd.DataFrame(columns=['Departure', 'Return', 'Departure station id', 'Departure station name', 'Return station id', 'Return station name', 'Covered distance (m)', 'Duration (sec.)'])
 
+print('Loading datasets...\n')
 for dataset in listdir('datasets'):
   if dataset == 'weather_hourly_helsinki.csv':
     continue
@@ -22,3 +24,14 @@ for dataset in listdir('datasets'):
 
 bike_df['Departure'] = pd.to_datetime(bike_df['Departure'], format='mixed')
 bike_df['Return'] = pd.to_datetime(bike_df['Return'], format='mixed')
+
+for station in bike_df['Departure station name'].values.tolist():
+  print('Aggregating over stations\n')
+  columns = ['Departure', 'Departure station name', 'Departure station id']
+  temp_station = bike_df.loc[bike_df['Departure station name'] == station, columns]
+  temp_station['trip'] = 1
+
+  temp_station = temp_station.resample(freq='H', on='Departure').trip.sum()
+
+  print('Printing aggregate to csv\n')
+  temp_station.to_csv(station + 'hourly_aggregate.csv')
