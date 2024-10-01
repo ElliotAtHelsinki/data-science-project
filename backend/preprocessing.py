@@ -25,13 +25,19 @@ for dataset in listdir('datasets'):
 bike_df['Departure'] = pd.to_datetime(bike_df['Departure'], format='mixed')
 bike_df['Return'] = pd.to_datetime(bike_df['Return'], format='mixed')
 
-for station in bike_df['Departure station name'].values.tolist():
+for station in list(set(bike_df['Departure station name'].values.tolist())):
   print('Aggregating over stations\n')
   columns = ['Departure', 'Departure station name', 'Departure station id']
   temp_station = bike_df.loc[bike_df['Departure station name'] == station, columns]
   temp_station['trip'] = 1
 
-  temp_station = temp_station.resample(freq='H', on='Departure').trip.sum()
+  temp_station = temp_station.resample('H', on='Departure').trip.sum()
 
   print('Printing aggregate to csv\n')
-  temp_station.to_csv(station + 'hourly_aggregate.csv')
+  try:
+    name = station.replace("/", "-")
+    
+    temp_station.to_csv('datasets/' + name + '_hourly_aggregate.csv', mode = 'x')
+  except:
+    print(station)
+    
