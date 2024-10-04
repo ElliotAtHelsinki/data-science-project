@@ -1,4 +1,12 @@
-export const sampleAnnualTripCountData = [
+export interface Entry {
+  temperature: number
+  rain: number
+  wind: number
+  time: Date
+  trip_count: number
+}
+
+export const sampleAnnualTripCountData: Entry[] = [
   [
     "10.1",
     "0.00",
@@ -271137,4 +271145,10 @@ export const sampleAnnualTripCountData = [
     "2023-10-31T21:00:00",
     1
   ]
-]
+].map(o => ({
+  temperature: parseFloat(o[0] as string),
+  rain: parseFloat(o[1] as string),
+  wind: parseFloat(o[2] as string),
+  time: new Date(o[3]),
+  trip_count: o[4] as number
+})).filter(e => e.time.getFullYear() == 2023 && e.time.getMonth() == 6)
