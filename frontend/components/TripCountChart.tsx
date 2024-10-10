@@ -2,7 +2,7 @@
 // ChatGPT-generated
 import { Line } from 'react-chartjs-2'
 import { Chart as ChartJS, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js'
-import 'chartjs-adapter-date-fns' // Adapter for date handling
+import 'chartjs-adapter-date-fns'
 import { Entry } from '@/constants'
 
 // Register required chart components
@@ -10,14 +10,26 @@ ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Leg
 
 export const TripCountChart = ({ data }: { data: Entry[] }) => {
   const chartData = {
-    labels: data.map(entry => entry.time), // X-axis: time (Date objects)
+    labels: data.map((entry) => entry.time),
     datasets: [
       {
         label: 'Trip Count',
-        data: data.map(entry => entry.trip_count), // Y-axis: trip_count
+        data: data.map((entry) => entry.trip_count),
         fill: false,
         borderColor: 'rgba(75,192,192,1)',
         tension: 0.1,
+        segment: {
+          borderColor: (ctx: any) => {
+            const dataIndex = ctx.p0DataIndex // Starting index of the segment
+            const totalPoints = data.length
+            const threeQuarterIndex = Math.floor(totalPoints * 0.75)
+
+            // Use a different color after 3/4 of the x-axis
+            return dataIndex >= threeQuarterIndex
+              ? 'rgba(255,99,132,1)' // Different color after 3/4
+              : 'rgba(75,192,192,1)' // Default color for the first 3/4
+          },
+        },
       },
     ],
   }
@@ -27,10 +39,10 @@ export const TripCountChart = ({ data }: { data: Entry[] }) => {
       x: {
         type: 'time',
         time: {
-          unit: 'hour',  // Specify the unit as 'hour' for hour-specific data
-          tooltipFormat: 'PPpp', // 'PPpp' formats as "Oct 4, 2023, 2:00 PM"
+          unit: 'hour',
+          tooltipFormat: 'PPpp',
           displayFormats: {
-            hour: 'MMM d, yyyy HH:mm', // Format for x-axis (hour granularity)
+            hour: 'MMM d, yyyy HH:mm',
           },
         },
         title: {
@@ -49,8 +61,7 @@ export const TripCountChart = ({ data }: { data: Entry[] }) => {
     plugins: {
       tooltip: {
         callbacks: {
-          // @ts-ignore
-          label: function (context) {
+          label: function (context: any) {
             return `Trip Count: ${context.raw}`
           },
         },
@@ -58,8 +69,7 @@ export const TripCountChart = ({ data }: { data: Entry[] }) => {
     },
   }
 
-  // @ts-ignore
-  return <Line data={chartData} options={options} />
+  return <Line data={chartData} options={options as any} />
 }
 
 export default TripCountChart
