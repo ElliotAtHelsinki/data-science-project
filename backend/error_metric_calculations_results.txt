@@ -1,0 +1,1 @@
+[(np.float64(3.3274909833208963), 'no exogenous data'), (np.float64(3.158263780804383), 'just weather'), (np.float64(3.3220296790264277), 'just weekdays and hours'), (np.float64(3.1363872336562717), 'all exogenous')]
