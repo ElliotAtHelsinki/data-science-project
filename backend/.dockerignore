@@ -1,0 +1,6 @@
+env
+datasets/20*
+datasets/full_bike_data.csv
+main.ipynb
+deploy.sh
+.env

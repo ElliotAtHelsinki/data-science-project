@@ -1,0 +1,8 @@
+pandas
+numpy
+matplotlib
+seaborn
+statsmodels
+datetime
+django-cors-headers
+python-dotenv
