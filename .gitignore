@@ -7,3 +7,5 @@ backend/.env.production
 backend/app/__pycache__
 backend/project/__pycache__
 
+frontend/.env
+

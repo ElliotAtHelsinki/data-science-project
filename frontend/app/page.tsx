@@ -2,15 +2,17 @@
 
 import { InputField, TripCountChart, Wrapper } from '@/components'
 import { sampleAnnualTripCountData } from '@/constants'
-import { Box, Button, Flex, FormErrorMessage, FormLabel, Heading, Text } from '@chakra-ui/react'
-import { Formik, Form } from 'formik'
+import { Box, Button, Flex, FormErrorMessage, FormLabel, Heading, Select, Text } from '@chakra-ui/react'
+import { Formik, Form, Field } from 'formik'
 import { useState } from 'react'
 
 interface Response {
   timestamp: string
+  station: string
   departingCount: number
   returningCount: number
   bikeAtStationCount: number
+  increasing: boolean
 }
 
 const Home: React.FC = () => {
@@ -19,32 +21,41 @@ const Home: React.FC = () => {
   return (
     <Box w='100%'>
       <Wrapper>
-        <Flex justifyContent='center'>
-          <Heading as='h3' size='lg'>Kamppi Trip Count in July 2023</Heading>
-        </Flex>
-        <TripCountChart data={sampleAnnualTripCountData} />
         <Formik
           initialValues={{ timestamp: '' }}
           onSubmit={async ({ timestamp }, { setErrors }) => {
-            const response: Response = await (await fetch(`http://localhost:8000/app/predict?timestamp=${timestamp}`)).json()
+            const response: Response = await (await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN}/app/predict?timestamp=${timestamp}`)).json()
             setPredictionData(response)
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, values }) => (
             <Form>
               <Flex flexDir='column' alignItems='center' mt={4}>
-                <FormLabel htmlFor='timestamp'>Enter timestamp to get prediction</FormLabel>
-                {/* @ts-ignore */}
+                {/* <Field name='station'>
+                  {({ field }) => (
+                    <>
+                      <FormLabel htmlFor='station'>Station</FormLabel>
+                      <Select id='station' placeholder='Select station' {...field}>
+                        <option value='Kamppi (M)'>Kamppi (M)</option>
+                        <option value='Rautatientori - itä'>Rautatientori - itä</option>
+                      </Select>
+                    </>
+                  )}
+                </Field> */}
+
+                <FormLabel htmlFor='timestamp' mt={4} mb={0}>Timestamp</FormLabel>
                 <InputField name='timestamp' label='' placeholder='YYYY-MM-DD HH:MM:SS' textAlign='center' />
-                <Button type='submit' colorScheme='teal' mt={4} isLoading={isSubmitting} disabled={isSubmitting}>Submit</Button>
+
+                <Button type='submit' mt={4} disabled={isSubmitting} isLoading={isSubmitting}>Predict</Button>
                 {
                   predictionData &&
                   <Box mt={4}>
                     <Text>Timestamp: {predictionData.timestamp}</Text>
-                    <Text>Number of Bikes Arriving at Station: {predictionData.returningCount}</Text>
-                    <Text>Number of Bikes Departing from Station: {predictionData.departingCount}</Text>
+                    <Text>Station: {predictionData.station}</Text>
+                    <Text>Predicted Number of Bikes Arriving at Station: {predictionData.returningCount}</Text>
+                    <Text>Predicted Number of Bikes Departing from Station: {predictionData.departingCount}</Text>
                     <Text>Predicted Number of Bikes at Station: {predictionData.bikeAtStationCount}</Text>
-                    <Text>Bike Count Status: {predictionData.departingCount > predictionData.returningCount ? 'Decreasing' : 'Increasing'}</Text>
+                    <Text>Predicted Bike Count Status: {predictionData.increasing ? 'Decreasing' : 'Increasing'}</Text>
                     <Text>
                       In need of more bikes: &nbsp;
                       {
@@ -55,6 +66,7 @@ const Home: React.FC = () => {
                     </Text>
                   </Box>
                 }
+
               </Flex>
             </Form>
           )}

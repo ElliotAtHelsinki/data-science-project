@@ -1,8 +1,8 @@
 'use client'
-import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
+import { FormControl, FormErrorMessage, FormLabel, Input, InputProps } from '@chakra-ui/react'
 import { useField } from 'formik'
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & { name: string, label: string, isTextArea?: boolean }
+type Props = React.InputHTMLAttributes<HTMLInputElement> & { name: string, label: string, isTextArea?: boolean } & InputProps
 
 export const InputField: React.FC<Props> = ({size: _, isTextArea=false, ...props}) => {
   const [field, { error }] = useField(props)

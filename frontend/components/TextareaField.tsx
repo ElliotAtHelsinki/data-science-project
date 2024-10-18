@@ -1,10 +1,10 @@
 'use client'
-import { FormControl, FormErrorMessage, FormLabel, Textarea } from '@chakra-ui/react'
+import { FormControl, FormErrorMessage, FormLabel, Textarea, TextareaProps } from '@chakra-ui/react'
 import autosize from 'autosize'
 import { useField } from 'formik'
 import { useRef, useEffect } from 'react'
 
-type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & { name: string, label: string }
+type Props = React.TextareaHTMLAttributes<HTMLTextAreaElement> & { name: string, label: string } & TextareaProps
 
 export const TextareaField: React.FC<Props> = (props): JSX.Element => {
   const [field, { error }] = useField(props)
