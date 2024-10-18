@@ -3,8 +3,8 @@ import { Providers } from './providers'
 import { Flex } from '@chakra-ui/react'
 
 export const metadata: Metadata = {
-  title: '',
-  description: '',
+  title: 'HSL Bike Helper',
+  description: 'An app that makes prediction based on Open Data from the Helsinki Bike System.',
 }
 
 const RootLayout = ({ children, }: Readonly<{ children: React.ReactNode }>) => {
