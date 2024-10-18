@@ -1,9 +1,8 @@
 'use client'
 
-import { InputField, TripCountChart, Wrapper } from '@/components'
-import { sampleAnnualTripCountData } from '@/constants'
-import { Box, Button, Flex, FormErrorMessage, FormLabel, Heading, Select, Text } from '@chakra-ui/react'
-import { Formik, Form, Field } from 'formik'
+import { InputField, Wrapper } from '@/components'
+import { Box, Button, Flex, FormLabel, Select, Text } from '@chakra-ui/react'
+import { Field, Form, Formik } from 'formik'
 import { useState } from 'react'
 
 interface Response {
@@ -22,16 +21,17 @@ const Home: React.FC = () => {
     <Box w='100%'>
       <Wrapper>
         <Formik
-          initialValues={{ timestamp: '' }}
-          onSubmit={async ({ timestamp }, { setErrors }) => {
-            const response: Response = await (await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN}/app/predict?timestamp=${timestamp}`)).json()
+          initialValues={{ station: '', timestamp: '' }}
+          onSubmit={async ({ station, timestamp }, { setErrors }) => {
+            const response: Response = await (await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN}/app/predict?timestamp=${timestamp}&station=${station}`)).json()
             setPredictionData(response)
           }}
         >
           {({ isSubmitting, values }) => (
             <Form>
               <Flex flexDir='column' alignItems='center' mt={4}>
-                {/* <Field name='station'>
+                <Field name='station'>
+                  {/* @ts-ignore */}
                   {({ field }) => (
                     <>
                       <FormLabel htmlFor='station'>Station</FormLabel>
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
                       </Select>
                     </>
                   )}
-                </Field> */}
+                </Field>
 
                 <FormLabel htmlFor='timestamp' mt={4} mb={0}>Timestamp</FormLabel>
                 <InputField name='timestamp' label='' placeholder='YYYY-MM-DD HH:MM:SS' textAlign='center' />
