@@ -35,7 +35,7 @@ const Home: React.FC = () => {
                   {({ field }) => (
                     <>
                       <FormLabel htmlFor='station'>Station</FormLabel>
-                      <Select id='station' placeholder='Select station' {...field}>
+                      <Select id='station' placeholder='' textAlign='center' {...field} >
                         <option value='Kamppi (M)'>Kamppi (M)</option>
                         <option value='Rautatientori - itä'>Rautatientori - itä</option>
                       </Select>
