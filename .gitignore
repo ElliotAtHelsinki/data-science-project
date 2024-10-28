@@ -1,5 +1,6 @@
 backend/env
 backend/datasets/*hourly_aggregate.csv
+backend/datasets/*return_hourly_aggregate.csv
 backend/datasets/*hourly_aggregate.csv.gz
 backend/datasets/*return_hourly_aggregate.csv.gz
 backend/datasets/full_bike_data.csv
@@ -8,4 +9,3 @@ backend/app/__pycache__
 backend/project/__pycache__
 
 frontend/.env
-
