@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     <Box w='100%'>
       <Wrapper>
         <Formik
-          initialValues={{ station: '', timestamp: '' }}
+          initialValues={{ station: 'Kamppi (M)', timestamp: '' }}
           onSubmit={async ({ station, timestamp }, { setErrors }) => {
             const response: Response = await (await fetch(`${process.env.NEXT_PUBLIC_BACKEND_ORIGIN}/app/predict?timestamp=${timestamp}&station=${station}`)).json()
             setPredictionData(response)
