@@ -1,4 +1,4 @@
-# HSL Bike Helper [![MIT - License](https://img.shields.io/badge/License-MIT-2ea44f)](https://opensource.org/licenses/MIT) ![v - 1.0.0](https://img.shields.io/badge/v-1.0.0-blue) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)
+# HSL Bike Helper [![Unlicense](https://img.shields.io/badge/License-Unlicense-2ea44f)](https://github.com/ElliotAtHelsinki/data-science-project/blob/main/LICENSE.md) ![v - 1.0.0](https://img.shields.io/badge/v-1.0.0-blue) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)
 
 HSL Bike Helper is an app that predicts the number of bikes at stations in [`Helsinki`](https://hel.fi/) and [`Espoo`](https://espoo.fi/) at any hour using the [`SARIMA`](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average) model.
 
