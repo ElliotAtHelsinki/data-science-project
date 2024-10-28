@@ -2,7 +2,7 @@
 
 HSL Bike Helper is an app that predicts the number of bikes at stations in [`Helsinki`](https://hel.fi/) and [`Espoo`](https://espoo.fi/) at any hour using the [`SARIMA`](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average) model.
 
-### Repository:
+### Repository
 https://github.com/ElliotAtHelsinki/data-science-project  
 
 ### Installation
