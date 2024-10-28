@@ -22,4 +22,4 @@ To run the `Django` backend locally, navigate to the `backend` folder and:
 
 To run the `Next.js` frontend locally, navigate to the `frontend` folder and:  
 \- Install the dependencies: `npm install`   
-\- Start the application: `npm run dev  `
+\- Start the application: `npm run dev`  
