@@ -13,7 +13,7 @@ The application can be directly accessed via a web browser at the following addr
 Optionally, however, the application can be installed as a mobile or desktop app, since it is a PWA.
 
 ### Development
-To run the `Django` backend locally, navigate to the `backend` folder and:
+To run the `Django` backend locally, navigate to the `backend` folder and:  
 \- Source the `env`: `source env/bin/activate`  
 \- Create an empty `.env` file: `touch .env`  
 \- Install the dependencies: `pip install -r requirements.txt`  
